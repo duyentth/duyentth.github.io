@@ -10,27 +10,67 @@
         .container {
             margin: auto;
             margin-top: 100px;
-            width: 70%;
+            width: 80%;
             /* border: 3px solid #73AD21; */
-            padding: 5  px;
+            padding: 5 px;
             background-color: bisque;
-            
+
         }
-        .myInputs{
+
+        .myInputs {
             display: flex;
             justify-content: center;
             margin: auto;
             width: 94%;
             display: flex;
             gap: 10px;
-            
+
         }
-       
-        input{
+
+        input {
             height: 40px;
+            width: 125px;
             border-style: hidden;
-            font-size: 20px;
-            font-weight: bolder; 
+            font-size: 17px;
+            font-weight: bolder;
+        }
+
+        #operator {
+            border-style: hidden;
+            font-size: 17px;
+            width: 125px;
+            font-weight: bold;
+        }
+
+        button {
+            margin: 30px;
+            height: 35px;
+            font-size: 17px;
+        }
+
+        @media only screen and (max-width: 800px) {
+
+            .container {
+                width: 95%;
+            }
+
+            .myInputs {
+                width: 97%;
+            }
+
+            input {
+                width: 100px;
+                font-size: 12px;
+            }
+
+            button {
+                font-size: 15px;
+            }
+
+            #operator {
+                font-size: 12px;
+                width: 100px;
+            }
         }
     </style>
 </head>
@@ -41,10 +81,9 @@
         <br><br>
         <div class="myInputs">
             <input class="firstNum" type="number" placeholder="first number" required>
-            <select name="" id="operator" style="border-style: hidden;font-size: 20px;
-            font-weight: bold;">
+            <select name="" id="operator">
                 <option value="default" disabled selected>operator</option>
-                <option value="addition">+   &nbsp;&nbsp; Addition</option>
+                <option value="addition">+ &nbsp;&nbsp; Addition</option>
                 <option value="subtraction">- &nbsp; &nbsp; Subtraction</option>
                 <option value="multiplication">* &nbsp; &nbsp; Multiplication</option>
                 <option value="division">/ &nbsp; &nbsp; Division</option>
@@ -53,78 +92,78 @@
             <input class="secondNum" type="number" placeholder="second number" required>
             <label for="" style="font-weight: bolder; font-size:30px;">=</label>
             <input class="result" type="number" placeholder="result" readonly>
-           
+
         </div>
         <div style=" display: flex; flex-direction: row ; justify-content: center;">
-            <button id="calcBtn" style=" margin: 30px;height: 35px;font-size: 20px;">Calculate</button>
-            <button id="clearData" style=" margin: 30px;height: 35px;font-size: 20px;">Clear</button>
+            <button id="calcBtn" style=" margin: 30px;height: 35px;font-size: 15px;">Calculate</button>
+            <button id="clearData" style=" margin: 30px;height: 35px;font-size: 15px;">Clear</button>
         </div>
 
-    <script>
-        
-        let calcBtn = document.querySelector("#calcBtn");
-        let clearBtn = document.querySelector("#clearData");
+        <script>
 
-        //addeventListener to Calculate Button
-        calcBtn.addEventListener("click", function(){
-            
-            let firstNum = document.querySelector(".firstNum").value;
-            let secondNum = document.querySelector(".secondNum").value;
-            if ( firstNum === "" || secondNum === "") {
-                showErrorMsg("Please enter two numbers and choose an operator!");
-                return;
-            }
-            firstNum = parseFloat( firstNum);
-            secondNum = parseFloat(secondNum);
-            
-            let opts = document.querySelectorAll("option");
-            let selectedOperator;
-            for(let opt of opts) {
-                if( opt.selected) {
-                    if (opt.value === "default") {
-                        showErrorMsg("Please choose an operator!");
-                        return;
-                    }
-                    selectedOperator = opt.value;
-                    break;
+            let calcBtn = document.querySelector("#calcBtn");
+            let clearBtn = document.querySelector("#clearData");
+
+            //addeventListener to Calculate Button
+            calcBtn.addEventListener("click", function () {
+
+                let firstNum = document.querySelector(".firstNum").value;
+                let secondNum = document.querySelector(".secondNum").value;
+                if (firstNum === "" || secondNum === "") {
+                    showErrorMsg("Please enter two numbers and choose an operator!");
+                    return;
                 }
-            }
-            let result;
-            if (selectedOperator === "addition") {
-                result = firstNum + secondNum;
-            } else if ( selectedOperator === "subtraction") {
-                result = firstNum - secondNum;
-            } else if ( selectedOperator === "multiplication") {
-                result = firstNum * secondNum;
-            }  else if ( selectedOperator === "division") {
-                result = firstNum / secondNum;
-            }  else if ( selectedOperator === "modulus") {
-                result = firstNum % secondNum;
-            }
-            document.querySelector(".result").value = result;
-        });
+                firstNum = parseFloat(firstNum);
+                secondNum = parseFloat(secondNum);
 
-        //addeventListener to Clear Button
-        clearBtn.addEventListener("click", function () {
-            document.querySelector(".firstNum").value = "";
-            document.querySelector(".secondNum").value = "";
-            document.querySelector(".result").value = "";
-        })
+                let opts = document.querySelectorAll("option");
+                let selectedOperator;
+                for (let opt of opts) {
+                    if (opt.selected) {
+                        if (opt.value === "default") {
+                            showErrorMsg("Please choose an operator!");
+                            return;
+                        }
+                        selectedOperator = opt.value;
+                        break;
+                    }
+                }
+                let result;
+                if (selectedOperator === "addition") {
+                    result = firstNum + secondNum;
+                } else if (selectedOperator === "subtraction") {
+                    result = firstNum - secondNum;
+                } else if (selectedOperator === "multiplication") {
+                    result = firstNum * secondNum;
+                } else if (selectedOperator === "division") {
+                    result = firstNum / secondNum;
+                } else if (selectedOperator === "modulus") {
+                    result = firstNum % secondNum;
+                }
+                document.querySelector(".result").value = result;
+            });
 
-        function showErrorMsg(msg){
-            if( document.querySelector(".error")){
-                document.querySelector(".error").remove();
+            //addeventListener to Clear Button
+            clearBtn.addEventListener("click", function () {
+                document.querySelector(".firstNum").value = "";
+                document.querySelector(".secondNum").value = "";
+                document.querySelector(".result").value = "";
+            })
+
+            function showErrorMsg(msg) {
+                if (document.querySelector(".error")) {
+                    document.querySelector(".error").remove();
+                }
+                let errorPEle = document.createElement("p");
+                document.querySelector("#calcBtn").before(errorPEle);
+                errorPEle.outerHTML = "<p class='error' style='color:red; font-size: 20px'>" + msg + "</p>";
+                setTimeout(() => {
+                    if (document.querySelector(".error")) {
+                        document.querySelector(".error").remove();
+                    }
+                }, 3000);
             }
-            let errorPEle = document.createElement("p");
-            document.querySelector("#calcBtn").before(errorPEle);
-            errorPEle.outerHTML = "<p class='error' style='color:red; font-size: 20px'>" + msg + "</p>";
-            setTimeout(( ) => {
-                if( document.querySelector(".error")){
-                document.querySelector(".error").remove();
-            }
-            } , 3000);
-        }
-    </script>
+        </script>
 </body>
 
 </html>
