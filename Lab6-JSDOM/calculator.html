@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            margin: auto;
+            margin-top: 100px;
+            width: 70%;
+            /* border: 3px solid #73AD21; */
+            padding: 5  px;
+            background-color: bisque;
+            
+        }
+        .myInputs{
+            display: flex;
+            justify-content: center;
+            margin: auto;
+            width: 94%;
+            display: flex;
+            gap: 10px;
+            
+        }
+       
+        input{
+            height: 40px;
+            border-style: hidden;
+            font-size: 20px;
+            font-weight: bolder; 
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="text-align: center;font-size: 40px;"> Calculator</h1>
+        <br><br>
+        <div class="myInputs">
+            <input class="firstNum" type="number" placeholder="first number" required>
+            <select name="" id="operator" style="border-style: hidden;font-size: 20px;
+            font-weight: bold;">
+                <option value="default" disabled selected>operator</option>
+                <option value="addition">+   &nbsp;&nbsp; Addition</option>
+                <option value="subtraction">- &nbsp; &nbsp; Subtraction</option>
+                <option value="multiplication">* &nbsp; &nbsp; Multiplication</option>
+                <option value="division">/ &nbsp; &nbsp; Division</option>
+                <option value="modulus">% &nbsp; &nbsp; Modulus</option>
+            </select>
+            <input class="secondNum" type="number" placeholder="second number" required>
+            <label for="" style="font-weight: bolder; font-size:30px;">=</label>
+            <input class="result" type="number" placeholder="result" readonly>
+           
+        </div>
+        <div style=" display: flex; flex-direction: row ; justify-content: center;">
+            <button id="calcBtn" style=" margin: 30px;height: 35px;font-size: 20px;">Calculate</button>
+            <button id="clearData" style=" margin: 30px;height: 35px;font-size: 20px;">Clear</button>
+        </div>
+
+    <script>
+        
+        let calcBtn = document.querySelector("#calcBtn");
+        let clearBtn = document.querySelector("#clearData");
+
+        //addeventListener to Calculate Button
+        calcBtn.addEventListener("click", function(){
+            
+            let firstNum = document.querySelector(".firstNum").value;
+            let secondNum = document.querySelector(".secondNum").value;
+            if ( firstNum === "" || secondNum === "") {
+                showErrorMsg("Please enter two numbers and choose an operator!");
+                return;
+            }
+            firstNum = parseFloat( firstNum);
+            secondNum = parseFloat(secondNum);
+            
+            let opts = document.querySelectorAll("option");
+            let selectedOperator;
+            for(let opt of opts) {
+                if( opt.selected) {
+                    if (opt.value === "default") {
+                        showErrorMsg("Please choose an operator!");
+                        return;
+                    }
+                    selectedOperator = opt.value;
+                    break;
+                }
+            }
+            let result;
+            if (selectedOperator === "addition") {
+                result = firstNum + secondNum;
+            } else if ( selectedOperator === "subtraction") {
+                result = firstNum - secondNum;
+            } else if ( selectedOperator === "multiplication") {
+                result = firstNum * secondNum;
+            }  else if ( selectedOperator === "division") {
+                result = firstNum / secondNum;
+            }  else if ( selectedOperator === "modulus") {
+                result = firstNum % secondNum;
+            }
+            document.querySelector(".result").value = result;
+        });
+
+        //addeventListener to Clear Button
+        clearBtn.addEventListener("click", function () {
+            document.querySelector(".firstNum").value = "";
+            document.querySelector(".secondNum").value = "";
+            document.querySelector(".result").value = "";
+        })
+
+        function showErrorMsg(msg){
+            if( document.querySelector(".error")){
+                document.querySelector(".error").remove();
+            }
+            let errorPEle = document.createElement("p");
+            document.querySelector("#calcBtn").before(errorPEle);
+            errorPEle.outerHTML = "<p class='error' style='color:red; font-size: 20px'>" + msg + "</p>";
+            setTimeout(( ) => {
+                if( document.querySelector(".error")){
+                document.querySelector(".error").remove();
+            }
+            } , 3000);
+        }
+    </script>
+</body>
+
+</html>
