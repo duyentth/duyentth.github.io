@@ -7,22 +7,27 @@
 
 Array.prototype.removeDuplicatesAsync = function () {
     let arr = this;
-    new Promise( (resolve, reject) => {
-        for ( let i = 0; i < arr.length - 1; i ++) {
-            for( let j = i + 1; j < arr.length; j ++) {
-                if ( arr[i] === arr[j]) {
-                    arr.splice(j, 1);
-                    j --;
+    new Promise((resolve, reject) => {
+        if (arr.length === 0) {
+            reject("This array is empty.");
+        } else {
+            for (let i = 0; i < arr.length - 1; i++) {
+                for (let j = i + 1; j < arr.length; j++) {
+                    if (arr[i] === arr[j]) {
+                        arr.splice(j, 1);
+                        j--;
+                    }
                 }
             }
+            resolve(arr);
         }
-        resolve(arr);
-    }). then (console.log);
+    }).then(console.log)
+        .catch(console.log)
 }
-
 
 //testing
 console.log(`start`);
+//[].removeDuplicatesAsync();
 [4, 1, 5, 7, 2, 3, 1, 4, 6, 5, 2].removeDuplicatesAsync();
 console.log(`end`);
 
