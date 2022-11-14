@@ -23,7 +23,6 @@ const isPrime = (num) => {
     })
 };
 
-
 //testing
 console.log('start');
 isPrime(7)
