@@ -10,16 +10,15 @@ const isPrime = (num) => {
 
     return new Promise((resolve, reject) => {
 
-        if (num === 1) {
-            setTimeout(() => reject("{prime: false}"), 500);
-        } else {
-            for (let i = 2, s = Math.sqrt(num); i <= s; i++)
-                if (num % i === 0) {                    
-                    setTimeout(() => reject("{prime: false}"), 500);
+        setTimeout(() => {
+            for (let i = 2, s = Math.sqrt(num); i <= s; i++) {
+                if (num % i === 0) {
+                    reject({ prime: false });
                     break;
                 }
-            setTimeout(() => resolve("{prime: true}"), 500);
-        }
+            }
+            resolve({ prime: num > 1 });
+        }, 500);
     })
 };
 
