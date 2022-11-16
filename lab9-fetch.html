@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<style>
+    .row {
+        display: flex;
+        /* justify-content: center; */
+        gap: 20px;
+        padding: 10px;
+    }
+
+    hr {
+        border: 1px solid grey;
+    }
+    .content{
+        margin: auto;
+        width: 40%;
+        
+    }
+    .container{
+        display: inline;
+    }
+</style>
+
+<body>
+    <div class="content">
+        <h4>Employee List</h4>
+        <div class="container"> </div>
+        <div><button id="refreshBtn" onclick="refresh(event)">Refresh</button></div>
+    </div>
+    <script>
+        getEmployeesList();
+        function refresh(event) {
+            event.preventDefault();
+            document.querySelector(".container").innerHTML = "";
+            getEmployeesList();
+        }
+
+        async function getEmployeesList() {
+            const response = await fetch("https://randomuser.me/api/?results=5");
+            const employees = await response.json();
+            //console.log( employees);
+            console.log(employees.results[0]);
+            createHTMLEmplList(employees.results);
+        }
+        function createHTMLEmplList(emplList) {
+
+
+            emplList.forEach((empl) => {
+                let html = `
+                    <div class="row">
+                    <div class="col">
+                        <img src="${empl.picture.large}" alt="">
+                    </div>
+                    <div class="col">
+                        <p>${empl.name.first} ${empl.name.last} Test</p>
+                        <p>${empl.phone}</p>
+                        <p>${empl.email}</p>
+                    </div>
+                   
+                </div>
+                <hr>`
+                let myDiv = document.createElement("div");
+                document.querySelector(".container").appendChild(myDiv);
+                myDiv.innerHTML = html;
+
+            });
+        }                            
+    </script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
