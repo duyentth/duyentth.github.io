@@ -370,25 +370,25 @@ function playRepeatShuffleSong () {
 
     if(playModes.length == 1) {//repeat one song
         playModes.push(1);  
-        myAudio.loop = true;  
-        ctrlRepeatShuffleBtn.style.color = "#2d5";    
+        myAudio.loop = true;      
+        ctrlRepeatShuffleBtn.style.color = "#2d5";
     } else if(playModes.length === 2) {//repeat playlist
         playModes.push(2);
-        ctrlRepeatShuffleBtn.classList.remove("fa-undo-alt");
-        ctrlRepeatShuffleBtn.classList.add("fa-random");     
+        ctrlRepeatShuffleBtn.classList.add("fa-random") ;      
+        ctrlRepeatShuffleBtn.classList.remove("fa-undo-alt") ;       
     } else if(playModes.length === 3){//shuffle playlist
         playModes.push(3);
+        ctrlRepeatShuffleBtn.classList.remove("fa-random") ;      
+        ctrlRepeatShuffleBtn.classList.add("fa-undo-alt") ; 
         let indexArr = createIndexArr(currentPlaylist.length);
         shuffledIndexArr = createShuffledArray(indexArr);
         currentIndex = shuffledIndexArr[0];    
-        ctrlRepeatShuffleBtn.classList.add("fa-undo-alt");
-        ctrlRepeatShuffleBtn.classList.remove("fa-random"); 
     } else {
         myAudio.loop = false;
         playModes = [0];//click repeat-shuflle button fouth time -> mode repeat 1 song        
     }
-    //console.log("playmodes array after clicking: ", playModes);
-    playMyAudio();
+    console.log("playmodes array after clicking: ",playModes);
+   playMyAudio();
 }
 
 function createShuffledArray(arr) {
@@ -414,6 +414,7 @@ function createShuffledArray(arr) {
  }
 function showPlayingMode() {
     const mode = playModes[playModes.length - 1];
+    console.log("play mode is:", mode);
     switch (mode) {
         case 0:
             playingModeSpan.innerHTML = "Playing mode: normal";  
