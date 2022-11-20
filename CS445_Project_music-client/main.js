@@ -370,22 +370,25 @@ function playRepeatShuffleSong () {
 
     if(playModes.length == 1) {//repeat one song
         playModes.push(1);  
-        myAudio.loop = true;      
+        myAudio.loop = true;  
+        ctrlRepeatShuffleBtn.style.color = "#2d5";    
     } else if(playModes.length === 2) {//repeat playlist
         playModes.push(2);
-        playingModeSpan.innerHTML = "repeat playlist";       
+        ctrlRepeatShuffleBtn.classList.remove("fa-undo-alt");
+        ctrlRepeatShuffleBtn.classList.add("fa-random");     
     } else if(playModes.length === 3){//shuffle playlist
         playModes.push(3);
-        playingModeSpan.innerHTML = "shuffle playlist";  
         let indexArr = createIndexArr(currentPlaylist.length);
         shuffledIndexArr = createShuffledArray(indexArr);
         currentIndex = shuffledIndexArr[0];    
+        ctrlRepeatShuffleBtn.classList.add("fa-undo-alt");
+        ctrlRepeatShuffleBtn.classList.remove("fa-random"); 
     } else {
         myAudio.loop = false;
         playModes = [0];//click repeat-shuflle button fouth time -> mode repeat 1 song        
     }
-    console.log("playmodes array after clicking: ",playModes);
-   playMyAudio();
+    //console.log("playmodes array after clicking: ", playModes);
+    playMyAudio();
 }
 
 function createShuffledArray(arr) {
@@ -411,19 +414,18 @@ function createShuffledArray(arr) {
  }
 function showPlayingMode() {
     const mode = playModes[playModes.length - 1];
-    console.log("play mode is:", mode);
     switch (mode) {
         case 0:
-            playingModeSpan.innerHTML = "normal mode";  
+            playingModeSpan.innerHTML = "Playing mode: normal";  
             break;
         case 1:
-            playingModeSpan.innerHTML = "repeat one song";  
+            playingModeSpan.innerHTML = "Playing mode: repeat one song";  
             break;
         case 2:
-            playingModeSpan.innerHTML = "repeat playlist";  
+            playingModeSpan.innerHTML = "Playing mode: repeat playlist";  
             break;
         case 3:
-            playingModeSpan.innerHTML = "suffle playlist";  
+            playingModeSpan.innerHTML = "Playing mode: suffle playlist";  
             break;
     }
 }
